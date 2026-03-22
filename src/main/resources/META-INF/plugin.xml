@@ -25,6 +25,13 @@
     ]]></description>
 
     <change-notes><![CDATA[
+        <h3>0.2.0</h3>
+        <ul>
+            <li>JavaScript language injection inside Eta tags (full IDE support: syntax highlighting, code completion, error checking)</li>
+            <li>All JS blocks in a file are concatenated into a single context for correct cross-block analysis</li>
+            <li>Built-in Eta functions (<code>include</code>, <code>includeAsync</code>, <code>layout</code>) and <code>it</code> variable are pre-declared</li>
+            <li>Lexer correctly handles <code>%&gt;</code> inside JS strings, comments, and template literals</li>
+        </ul>
         <h3>0.1.0</h3>
         <ul>
             <li>Initial release</li>
@@ -85,6 +92,10 @@
         <editorHighlighterProvider
             filetype="Eta"
             implementationClass="dev.varik.eta.highlighting.EtaEditorHighlighterProvider"/>
+
+        <!-- JavaScript injection inside Eta tags -->
+        <multiHostInjector
+            implementation="dev.varik.eta.injection.EtaJavaScriptInjector"/>
 
         <!-- Color settings page -->
         <colorSettingsPage

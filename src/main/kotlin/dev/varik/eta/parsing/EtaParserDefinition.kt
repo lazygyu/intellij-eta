@@ -12,6 +12,7 @@ import com.intellij.psi.tree.IFileElementType
 import com.intellij.psi.tree.TokenSet
 import dev.varik.eta.EtaLanguage
 import dev.varik.eta.psi.EtaFile
+import dev.varik.eta.psi.EtaJsBlock
 import dev.varik.eta.psi.EtaPsiElement
 
 class EtaParserDefinition : ParserDefinition {
@@ -20,11 +21,17 @@ class EtaParserDefinition : ParserDefinition {
 
     override fun createParser(project: Project?): PsiParser {
         return PsiParser { root, builder ->
-            val marker = builder.mark()
+            val fileMarker = builder.mark()
             while (!builder.eof()) {
-                builder.advanceLexer()
+                if (builder.tokenType == EtaTokenTypes.INNER_JS) {
+                    val jsMarker = builder.mark()
+                    builder.advanceLexer()
+                    jsMarker.done(EtaElementTypes.ETA_JS_BLOCK)
+                } else {
+                    builder.advanceLexer()
+                }
             }
-            marker.done(root)
+            fileMarker.done(root)
             builder.treeBuilt
         }
     }
@@ -35,7 +42,13 @@ class EtaParserDefinition : ParserDefinition {
     override fun getCommentTokens(): TokenSet = EtaTokenTypes.COMMENTS
     override fun getStringLiteralElements(): TokenSet = EtaTokenTypes.STRING_LITERALS
 
-    override fun createElement(node: ASTNode): PsiElement = EtaPsiElement(node)
+    override fun createElement(node: ASTNode): PsiElement {
+        return when (node.elementType) {
+            EtaElementTypes.ETA_JS_BLOCK -> EtaJsBlock(node)
+            else -> EtaPsiElement(node)
+        }
+    }
+
     override fun createFile(viewProvider: FileViewProvider): PsiFile = EtaFile(viewProvider)
 
     companion object {
