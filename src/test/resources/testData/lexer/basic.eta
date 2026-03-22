@@ -1,0 +1,13 @@
+<h1>Hello</h1>
+<% if (it.showGreeting) { %>
+  <p><%= it.name %></p>
+  <div><%~ it.rawHtml %></div>
+  <%_ it.trimmed _%>
+  <%- it.newlineTrimmed -%>
+<% } %>
+<ul>
+<% it.items.forEach(function(item) { %>
+  <li><%= item.title %></li>
+<% }) %>
+</ul>
+<%~ include("./footer") %>

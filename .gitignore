@@ -1,0 +1,23 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+out/
+
+# Gradle
+.gradle/
+build/
+.intellijPlatform/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Generated sources (regenerate with ./gradlew generateLexer)
+src/main/gen/
+
+# Claude Code
+.claude/
+
+# Kotlin
+.kotlin/
+
+# OS
+.DS_Store
+Thumbs.db
