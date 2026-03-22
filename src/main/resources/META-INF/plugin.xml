@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.github.lazygyu.eta</id>
     <name>Eta Template</name>
-    <vendor email="lazygyu@gmail.com">lazygyu</vendor>
+    <vendor email="lazygyu@gmail.com" url="https://github.com/lazygyu/intellij-eta">lazygyu</vendor>
     <description><![CDATA[
         <p>Syntax highlighting and editor support for the <a href="https://eta.js.org/">Eta</a> template language in WebStorm and other JetBrains IDEs.</p>
 
